@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "vintepila-gen-html"
+version = "0.1.0"
+description = "Generate HTML with insering data using the template."
+authors = ["Gregorio Honorato"]
+readme = "README.md"
+packages = [{include = "vintepila_gen_html"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+kivy = "^2.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

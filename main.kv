@@ -1,0 +1,33 @@
+<MainWindow>:
+    orientation: 'vertical'
+    spacing: 20
+
+    ScrollView:
+        size_hint: (1, 0.6)
+
+        BoxLayout:
+            id: table
+            orientation: 'vertical'
+
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (1, 0.2)
+
+        Label:
+            text: "Enunciado:"
+
+        TextInput:
+            multiline: True
+
+    BoxLayout:
+        orientation:'horizontal'
+        size_hint: (1, 0.1)
+        padding: 10
+        spacing: 5
+
+        Button: 
+            text: "REMOVER QUESTÃO"
+        Button:
+            text: "ADICIONAR QUESTÃO"
+        Button:
+            text: "GERAR HTML"
