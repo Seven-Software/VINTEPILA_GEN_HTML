@@ -1,23 +1,25 @@
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
+from kivy.factory import Factory as F
 
 
 class MainWindow(BoxLayout):
     """
     This class represents the main window of the application.
-
-    It inherits from the `BoxLayout` class and provides the layout and functionality
-    for the main window UI.
-
-    Attributes:
-        - attribute1: Description of attribute1.
-        - attribute2: Description of attribute2.
-
-    Methods:
-        - method1(): Description of method1.
-        - method2(): Description of method2.
     """
+
+    data = F.ListProperty([])
+
+    def update_table(self):
+        value = self.ids.text_input.text
+        self.ids.btn_add_question.disabled = False if value else True
+
+    def add_question(self):
+        value = self.ids.text_input.text
+        self.ids.text_input.text = ""
+        self.ids.btn_add_question.disabled = True
+        self.data.append({"text": value})
+        self.ids.list_view.data = self.data
 
 
 class MainApp(App):
