@@ -1,4 +1,5 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
+from question import Ui_Form
 
 
 class Ui_MainWindow(object):
@@ -89,6 +90,17 @@ class Ui_MainWindow(object):
         self.add_question.setText(_translate("MainWindow", "Adicionar"))
         self.remove_question.setText(_translate("MainWindow", "Remover"))
         self.export_html.setText(_translate("MainWindow", "Exportar"))
+        self.load_events()
+
+    def load_events(self):
+        self.add_question.clicked.connect(self.open_form_question)
+
+    def open_form_question(self):
+        self.form_question = QtWidgets.QDialog()
+        self.question_dialog = Ui_Form()
+        self.question_dialog.setupUi(self.form_question)
+        self.form_question.exec()
+        print(self.question_dialog.dialog_writer)
 
 
 if __name__ == "__main__":

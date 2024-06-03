@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'ui/question.ui'
+# Form implementation generated from reading ui file '/home/gregorio/Documentos/PROJETOS/ESTUDOS/VINTEPILA_GEN_HTML/ui/question.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.2
 #
@@ -14,40 +14,38 @@ class Ui_Form(object):
         Form.setObjectName("Form")
         Form.resize(559, 452)
         Form.setMinimumSize(QtCore.QSize(559, 452))
-        Form.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: #310061;\n"
-            "    border-radius: 10px;\n"
-            "    padding: 5px 10px;\n"
-            "    color: #fff; \n"
-            "}\n"
-            "\n"
-            "QPushButton:hover {\n"
-            "    background-color: #f00;\n"
-            "}\n"
-            "\n"
-            "QPushButton:disabled  {\n"
-            "    background-color: #36271e;\n"
-            "}\n"
-            "\n"
-            "QPushButton:pressed {\n"
-            "    background-color: #ff8456;\n"
-            "}\n"
-            "\n"
-            "#tablet{\n"
-            "    background-color: #555555;\n"
-            "}\n"
-            "\n"
-            ".QLineEdit{\n"
-            "    background-color: #555555;\n"
-            "}\n"
-            "\n"
-            "*{\n"
-            '    font: 18pt "DejaVu Sans";\n'
-            "    background: black;\n"
-            "    color: #fff;\n"
-            "}"
-        )
+        Form.setStyleSheet("QPushButton {\n"
+"    background-color: #310061;\n"
+"    border-radius: 10px;\n"
+"    padding: 5px 10px;\n"
+"    color: #fff; \n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #f00;\n"
+"}\n"
+"\n"
+"QPushButton:disabled  {\n"
+"    background-color: #36271e;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #ff8456;\n"
+"}\n"
+"\n"
+"#tablet{\n"
+"    background-color: #555555;\n"
+"}\n"
+"\n"
+".QLineEdit{\n"
+"    background-color: #555555;\n"
+"}\n"
+"\n"
+"*{\n"
+"    font: 18pt \"DejaVu Sans\";\n"
+"    background: black;\n"
+"    color: #fff;\n"
+"}")
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.widget = QtWidgets.QWidget(parent=Form)
@@ -80,8 +78,8 @@ class Ui_Form(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.insert_ask = QtWidgets.QPushButton(parent=Form)
+        self.insert_ask.setEnabled(False)
         self.insert_ask.setObjectName("insert_ask")
-        self.insert_ask.setDisabled(True)
         self.horizontalLayout.addWidget(self.insert_ask)
         self.cancel = QtWidgets.QPushButton(parent=Form)
         self.cancel.setObjectName("cancel")
@@ -89,16 +87,16 @@ class Ui_Form(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
 
         self.retranslateUi(Form)
-        self.cancel.clicked.connect(Form.close)  # type: ignore
+        self.cancel.clicked.connect(Form.close) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(Form)
         Form.setTabOrder(self.question, self.ask)
         Form.setTabOrder(self.ask, self.btn_add_ask)
         Form.setTabOrder(self.btn_add_ask, self.insert_ask)
         Form.setTabOrder(self.insert_ask, self.cancel)
 
-    def retranslateUi(self, form):
+    def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        form.setWindowTitle(_translate("Form", "Questões - Seven Sofware"))
+        Form.setWindowTitle(_translate("Form", "Questões - Seven Sofware"))
         self.label.setText(_translate("Form", "Questões"))
         self.question.setStatusTip(_translate("Form", "Informe a questão"))
         self.question.setPlaceholderText(_translate("Form", "Informe a questão"))
@@ -106,49 +104,3 @@ class Ui_Form(object):
         self.btn_add_ask.setText(_translate("Form", "Adicionar"))
         self.insert_ask.setText(_translate("Form", "Registrar"))
         self.cancel.setText(_translate("Form", "Cancelar"))
-        self.load_events(form)
-
-    def load_events(self, form):
-        self.btn_add_ask.clicked.connect(self.add_ask)
-        self.ask.textChanged.connect(self.check_ask)
-        self.question.textChanged.connect(self.check_insert_ask)
-        self.insert_ask.clicked.connect(lambda: self.add_questions(form))
-
-    def check_ask(self):
-        text = self.ask.text()
-        self.btn_add_ask.setEnabled(bool(text))
-        self.check_insert_ask()
-
-    def check_insert_ask(self):
-        text_1 = self.question.text()
-        lines = self.tablet.count()
-        check = bool(text_1) and lines > 0
-        self.insert_ask.setEnabled(check)
-
-    def add_ask(self):
-        text = self.ask.text()
-        self.tablet.addItem(text)
-        self.tablet.setItemAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        self.ask.clear()
-        self.ask.setFocus()
-
-    dialog_writer = {"title_question": None, "questions": None}
-
-    def add_questions(self, form):
-        title_question = self.question.text()
-        questions = [
-            self.tablet.item(item).text() for item in range(self.tablet.count())
-        ]
-        self.dialog_writer = {"title_question": title_question, "questions": questions}
-        form.close()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec())
