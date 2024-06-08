@@ -75,7 +75,7 @@ QPushButton:pressed {
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QTableWidget" name="tablet"/>
+         <widget class="QListView" name="tablet"/>
         </item>
        </layout>
       </item>
@@ -119,10 +119,7 @@ QPushButton:pressed {
   <tabstop>add_question</tabstop>
   <tabstop>export_html</tabstop>
   <tabstop>remove_question</tabstop>
-  <tabstop>tablet</tabstop>
  </tabstops>
- <resources>
-  <include location="css.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

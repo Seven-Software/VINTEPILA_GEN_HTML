@@ -1,5 +1,6 @@
-from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6 import QtCore, QtWidgets
 from question import Ui_Form
+from scripts.gen_html import GenHtml
 
 
 class Ui_MainWindow(object):
@@ -52,10 +53,8 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.tablet = QtWidgets.QTableWidget(parent=self.centralwidget)
+        self.tablet = QtWidgets.QListWidget(parent=self.centralwidget)
         self.tablet.setObjectName("tablet")
-        self.tablet.setColumnCount(0)
-        self.tablet.setRowCount(0)
         self.horizontalLayout_2.addWidget(self.tablet)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.verticalLayout_2.addLayout(self.verticalLayout)
@@ -92,15 +91,56 @@ class Ui_MainWindow(object):
         self.export_html.setText(_translate("MainWindow", "Exportar"))
         self.load_events()
 
-    def load_events(self):
+    def load_events(self):        
         self.add_question.clicked.connect(self.open_form_question)
+        self.export_html.clicked.connect(self.export_html_file)
+        self.remove_question.clicked.connect(self.remove_questions)
+        self.tablet.clicked.connect(self.handle_row_clicked)
+
+    def handle_row_clicked(self, item):
+        clicked_text = item.text()
+        print(f"Row clicked: {clicked_text}")
 
     def open_form_question(self):
         self.form_question = QtWidgets.QDialog()
         self.question_dialog = Ui_Form()
         self.question_dialog.setupUi(self.form_question)
         self.form_question.exec()
-        print(self.question_dialog.dialog_writer)
+        self.populate_table()
+
+    list_questions: list = []
+
+    def populate_table(self):
+        if title := self.question_dialog.dialog_writer["title_question"]:
+            self.tablet.addItem(title)
+            self.tablet.setItemAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+            self.list_questions.append(
+                {
+                    "question": title,
+                    "asks": self.question_dialog.dialog_writer["questions"],
+                }
+            )
+            self.export_html.setEnabled(True)
+
+    def enable_remove_button(self):
+        self.remove_question.setEnabled(True)
+
+    def remove_questions(self):
+        self.tablet.takeItem(self.tablet.currentRow())
+        self.remove_question.setEnabled(False)
+        self.export_html.setEnabled(False)
+
+    def export_html_file(self):
+        file_name = QtWidgets.QFileDialog.getSaveFileName(
+            parent=None,
+            caption="Salvar arquivo",
+            directory=".",
+            filter="Arquivos Html (*.html)",
+        )[0]
+        if file_name:
+            html = GenHtml(file_name)
+            html.add_questions(self.list_questions)
+            html.write_html()
 
 
 if __name__ == "__main__":

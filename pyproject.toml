@@ -9,6 +9,7 @@ packages = [{include = "vintepila_gen_html"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 pyqt6 = "^6.7.0"
+bs4 = "^0.0.2"
 
 
 [build-system]
