@@ -1,3 +1,4 @@
+import sys
 from PyQt6 import QtCore, QtWidgets
 from question import Ui_Form
 from scripts.gen_html import GenHtml
@@ -144,8 +145,6 @@ class Ui_MainWindow(object):
 
 
 if __name__ == "__main__":
-    import sys
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
